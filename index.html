@@ -14,13 +14,17 @@
     .tag { display:inline-block; padding:5px 13px; border-radius:99px; background:#d8f3eb; color:#0b665f; font-size:.82rem; font-weight:800; letter-spacing:.04em; }
     h1 { margin:12px 0 6px; padding:20px 14px; border-radius:18px; color:#124e4a; background:var(--mint); box-shadow:0 8px 22px #174e3c12; font-size:clamp(1.6rem,5vw,2.35rem); line-height:1.2; }
     header p { margin:8px 0; color:var(--muted); }
-    .progress-wrap { margin:20px 0; text-align:left; }
+    .exam-status { display:none; align-items:center; justify-content:space-between; gap:12px; margin:20px 0; padding:12px 15px; border:1px solid var(--line); border-radius:14px; background:#fff; text-align:left; }
+    .progress-wrap { flex:1; min-width:0; }
     .progress-label { display:flex; justify-content:space-between; gap:12px; margin-bottom:7px; font-size:.9rem; color:#426362; }
+    .timer { flex:none; padding:8px 12px; border-radius:11px; background:#e7f6ef; color:#116b59; font-size:1rem; font-variant-numeric:tabular-nums; font-weight:850; }
+    .timer.low { background:#fff0dc; color:#9d5714; animation:gentlePulse 1.4s ease-in-out infinite; }
     progress { width:100%; height:10px; border:0; border-radius:10px; overflow:hidden; }
     progress::-webkit-progress-bar { background:#dcebe7; border-radius:10px; }
     progress::-webkit-progress-value { background:var(--teal); border-radius:10px; }
     progress::-moz-progress-bar { background:var(--teal); border-radius:10px; }
-    .question-card { margin:16px 0; padding:19px 20px 12px; border:1px solid var(--line); border-left:5px solid #27a58e; border-radius:14px; background:#fff; box-shadow:0 4px 14px #173d3510; }
+    .question-card { display:none; margin:16px 0; padding:19px 20px 12px; border:1px solid var(--line); border-left:5px solid #27a58e; border-radius:14px; background:#fff; box-shadow:0 4px 14px #173d3510; }
+    .question-card.active { display:block; animation:cardIn .28s ease-out both; }
     .question-title { margin:0 0 12px; color:var(--ink); font-size:1.05rem; font-weight:750; }
     .number { display:inline-grid; place-items:center; width:28px; height:28px; margin-right:7px; border-radius:50%; background:#e4f6f0; color:#0b7167; font-size:.9rem; }
     label { display:flex; align-items:flex-start; gap:10px; margin:7px 0; padding:10px 11px; border-radius:9px; cursor:pointer; transition:background .18s; }
@@ -29,6 +33,20 @@
     button { width:100%; margin:10px 0; padding:15px 18px; border:0; border-radius:12px; background:#13806f; color:#fff; font-size:1.08rem; font-weight:800; cursor:pointer; box-shadow:0 5px 12px #0f766e30; }
     button:hover { background:#0e665b; }
     button.secondary { width:auto; padding:11px 18px; background:#e2f2ed; color:#145b54; box-shadow:none; }
+    button:disabled { opacity:.5; cursor:not-allowed; box-shadow:none; }
+    .start-panel { margin:22px 0; padding:24px; border:1px solid var(--line); border-radius:18px; background:#fff; box-shadow:0 8px 22px #173d3510; text-align:center; }
+    .mascot { display:inline-block; font-size:3rem; animation:bob 1.8s ease-in-out infinite; }
+    .start-panel h2 { margin:4px 0; color:var(--ink); }
+    .start-panel p { color:var(--muted); }
+    .time-chip { display:inline-block; margin:4px 0 10px; padding:7px 12px; border-radius:99px; background:#fff3d8; color:#805b0d; font-weight:750; }
+    .cheer { min-height:28px; margin:8px 0 0; color:#277765; font-weight:700; animation:cardIn .3s ease-out; }
+    .nav-buttons { display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-top:12px; }
+    .nav-buttons button { margin:0; }
+    .confetti { position:fixed; z-index:10; top:-30px; pointer-events:none; font-size:1.5rem; animation:fall 2.2s ease-in forwards; }
+    @keyframes bob { 0%,100%{transform:translateY(0) rotate(-3deg)} 50%{transform:translateY(-9px) rotate(3deg)} }
+    @keyframes cardIn { from{opacity:.35;transform:translateY(7px)} to{opacity:1;transform:translateY(0)} }
+    @keyframes gentlePulse { 0%,100%{transform:scale(1)} 50%{transform:scale(1.035)} }
+    @keyframes fall { to{transform:translate(var(--drift),105vh) rotate(650deg);opacity:0} }
     #result-container { display:none; margin-top:24px; padding:22px; border:1px solid var(--line); border-radius:16px; background:#fff; box-shadow:0 8px 22px #173d3510; }
     #result-container h2 { margin:0 0 6px; color:var(--ink); }
     .score { margin:4px 0 12px; color:#16745f; font-size:1.8rem; font-weight:850; }
@@ -39,7 +57,7 @@
     .feedback strong { display:block; margin-bottom:3px; }
     .note { color:#5a7270; font-size:.91rem; }
     footer { margin:24px 0 0; text-align:center; color:#6d8482; font-size:.84rem; }
-    @media (max-width:520px) { body { padding:17px 11px 34px; } .question-card { padding:16px 13px 9px; } label { padding:9px 8px; } }
+    @media (max-width:520px) { body { padding:17px 11px 34px; } .question-card { padding:16px 13px 9px; } label { padding:9px 8px; } .exam-status { align-items:stretch; flex-direction:column-reverse; } .timer { align-self:flex-end; } .nav-buttons { gap:8px; } .nav-buttons button { padding:12px 8px; font-size:.98rem; } }
   </style>
 </head>
 <body>
@@ -47,14 +65,25 @@
   <header>
     <span class="tag">3r de primària · Medi · Unitat 4</span>
     <h1>🌿 Examen: Els ecosistemes</h1>
-    <p>Llegeix cada pregunta i marca una resposta. Al final podràs veure la nota i repassar les explicacions.</p>
-    <div class="progress-wrap" aria-label="Progrés de l'examen">
-      <div class="progress-label"><span id="progress-text">0 de 10 preguntes contestades</span><span id="progress-percent">0%</span></div>
+    <p>Llegeix cada pregunta amb calma. Pots avançar i tornar enrere abans d'entregar.</p>
+    <div class="exam-status" id="exam-status" aria-label="Progrés i temps de l'examen">
+      <div class="progress-wrap">
+      <div class="progress-label"><span id="progress-text">Pregunta 1 de 10</span><span id="answered-count">0 respostes</span></div>
       <progress id="progress" value="0" max="10"></progress>
+      </div>
+      <div class="timer" id="timer" role="timer" aria-live="off">⏱ 15:00</div>
     </div>
   </header>
 
-  <form id="quiz-form">
+  <section class="start-panel" id="start-panel">
+    <div class="mascot" aria-hidden="true">🦊✨</div>
+    <h2>Tu pots fer-ho!</h2>
+    <p>Respira, llegeix cada pregunta i avança al teu ritme. La guineu t'acompanya!</p>
+    <div class="time-chip">10 preguntes · màxim 15 minuts</div>
+    <button type="button" id="start-button">Començar l'examen 🚀</button>
+  </section>
+
+  <form id="quiz-form" hidden>
     <section class="question-card"><h2 class="question-title"><span class="number">1</span>Què forma un ecosistema?</h2>
       <label><input type="radio" name="q1" value="a"> Només els animals que viuen en un lloc.</label>
       <label><input type="radio" name="q1" value="b"> Els éssers vius, el medi físic on viuen i les relacions entre tots.</label>
@@ -105,8 +134,13 @@
       <label><input type="radio" name="q10" value="b"> Arrencar plantes i acostar-se als animals per tocar-los.</label>
       <label><input type="radio" name="q10" value="c"> Respectar els animals i les plantes, seguir els camins i endur-se les deixalles.</label>
     </section>
-    <button type="button" id="submit-button">Corregir l'examen</button>
-    <p class="note">Revisa que hagis contestat totes les preguntes abans de corregir.</p>
+    <p class="cheer" id="cheer-message" aria-live="polite">Molt bé! Una pregunta cada vegada 🌱</p>
+    <div class="nav-buttons">
+      <button class="secondary" type="button" id="previous-button">← Enrere</button>
+      <button type="button" id="next-button">Endavant →</button>
+      <button type="button" id="finish-button" hidden>Acabar i veure la nota 🌟</button>
+    </div>
+    <p class="note" id="nav-note">Pots tornar a qualsevol pregunta abans d'acabar.</p>
   </form>
 
   <section id="result-container" aria-live="polite">
@@ -134,48 +168,117 @@
     q10:'Cal respectar plantes i animals, caminar pels camins marcats i llençar les deixalles a les papereres o endur-se-les.'
   };
   const form = document.getElementById('quiz-form');
+  const cards = [...form.querySelectorAll('.question-card')];
+  const total = cards.length;
+  const cheers = ['Molt bé! Continua així 🌱','Pas a pas, ho estàs fent genial! ✨','Llegeix amb calma: tu pots! 💪','La guineu està orgullosa de tu! 🦊','Ja queda menys. Endavant! ⭐'];
+  let currentQuestion = 0;
+  let secondsLeft = 15 * 60;
+  let timerId = null;
+  let finished = false;
   const radios = [...form.querySelectorAll('input[type="radio"]')];
   radios.forEach(radio => radio.addEventListener('change', updateProgress));
-  function updateProgress() {
-    const count = Object.keys(answers).filter(q => form.querySelector(`input[name="${q}"]:checked`)).length;
-    document.getElementById('progress').value = count;
-    document.getElementById('progress-text').textContent = `${count} de 10 preguntes contestades`;
-    document.getElementById('progress-percent').textContent = `${count * 10}%`;
+  function answeredCount() {
+    return Object.keys(answers).filter(q => form.querySelector(`input[name="${q}"]:checked`)).length;
   }
-  document.getElementById('submit-button').addEventListener('click', () => {
-    for (let i=1;i<=10;i++) {
-      if (!form.querySelector(`input[name="q${i}"]:checked`)) {
-        alert(`Et falta respondre la pregunta ${i}.`);
-        form.querySelector(`input[name="q${i}"]`).focus();
-        return;
+  function updateProgress() {
+    const count = answeredCount();
+    document.getElementById('progress').value = currentQuestion + 1;
+    document.getElementById('progress-text').textContent = `Pregunta ${currentQuestion + 1} de ${total}`;
+    document.getElementById('answered-count').textContent = `${count} de ${total} respostes`;
+  }
+  function showQuestion(index) {
+    currentQuestion = Math.max(0, Math.min(index, total - 1));
+    cards.forEach((card, i) => {
+      card.classList.toggle('active', i === currentQuestion);
+      card.setAttribute('aria-hidden', i === currentQuestion ? 'false' : 'true');
+    });
+    document.getElementById('previous-button').disabled = currentQuestion === 0;
+    document.getElementById('next-button').hidden = currentQuestion === total - 1;
+    document.getElementById('finish-button').hidden = currentQuestion !== total - 1;
+    document.getElementById('cheer-message').textContent = cheers[currentQuestion % cheers.length];
+    updateProgress();
+    window.scrollTo({top:0,behavior:'smooth'});
+  }
+  function renderTimer() {
+    const minutes = String(Math.floor(secondsLeft / 60)).padStart(2,'0');
+    const seconds = String(secondsLeft % 60).padStart(2,'0');
+    const timer = document.getElementById('timer');
+    timer.textContent = `⏱ ${minutes}:${seconds}`;
+    timer.classList.toggle('low', secondsLeft <= 60);
+  }
+  function startTimer() {
+    renderTimer();
+    timerId = window.setInterval(() => {
+      secondsLeft--;
+      renderTimer();
+      if (secondsLeft <= 0) submitExam(true);
+    },1000);
+  }
+  function startExam() {
+    document.getElementById('start-panel').hidden = true;
+    document.getElementById('exam-status').style.display = 'flex';
+    form.hidden = false;
+    showQuestion(0);
+    startTimer();
+  }
+  function celebrate() {
+    for(let i=0;i<18;i++) {
+      const bit=document.createElement('span');
+      bit.className='confetti';
+      bit.textContent=['⭐','🌿','✨','💚'][i%4];
+      bit.style.left=`${Math.random()*100}vw`;
+      bit.style.setProperty('--drift',`${Math.random()*120-60}px`);
+      bit.style.animationDelay=`${Math.random()*.5}s`;
+      document.body.append(bit);
+      window.setTimeout(()=>bit.remove(),2800);
+    }
+  }
+  document.getElementById('start-button').addEventListener('click',startExam);
+  document.getElementById('previous-button').addEventListener('click',()=>showQuestion(currentQuestion-1));
+  document.getElementById('next-button').addEventListener('click',()=>showQuestion(currentQuestion+1));
+  document.getElementById('finish-button').addEventListener('click',()=>submitExam(false));
+  function submitExam(timeExpired) {
+    if(finished)return;
+    if(!timeExpired) {
+      for (let i=1;i<=total;i++) {
+        if (!form.querySelector(`input[name="q${i}"]:checked`)) {
+          alert(`Et falta respondre la pregunta ${i}. Pots tornar-hi amb els botons d'enrere i endavant.`);
+          showQuestion(i-1);
+          return;
+        }
       }
     }
+    finished=true;
+    window.clearInterval(timerId);
     let score=0;
     const list=document.getElementById('feedback-display');
     list.replaceChildren();
-    for (let i=1;i<=10;i++) {
+    for (let i=1;i<=total;i++) {
       const q=`q${i}`;
-      const selected=form.querySelector(`input[name="${q}"]:checked`).value;
-      const correct=selected===answers[q];
+      const selected=form.querySelector(`input[name="${q}"]:checked`);
+      const correct=selected?.value===answers[q];
       if(correct) score++;
       const item=document.createElement('li');
       item.className=correct?'correct':'incorrect';
       const title=document.createElement('strong');
-      title.textContent=`Pregunta ${i}: ${correct?'Correcte!':'Encara no.'}`;
+      title.textContent=`Pregunta ${i}: ${correct?'Molt bé!':selected?'Encara no.':'Sense resposta.'}`;
       const detail=document.createElement('span');
       detail.textContent=explanations[q];
       item.append(title,detail); list.append(item);
     }
-    document.getElementById('quiz-form').hidden=true;
+    form.hidden=true;
+    document.getElementById('exam-status').style.display='none';
     document.getElementById('result-container').style.display='block';
     const scoreBox=document.getElementById('score-display');
     scoreBox.textContent=`La teva nota és: ${score} / 10`;
     scoreBox.style.color=score===10?'#16804c':score>=5?'#b66b08':'#b94739';
-    document.getElementById('encouragement').textContent=score===10?'🌟 Excel·lent! Ho has fet molt bé.':score>=5?'👍 Bona feina! Continua repassant.':'📚 Torna a llegir les explicacions i prova-ho una altra vegada.';
+    document.getElementById('encouragement').textContent=timeExpired?'⏰ El temps s’ha acabat. Has fet un bon esforç; repassa les explicacions i torna-ho a provar!':score===10?'🌟 Excel·lent! Ho has fet molt bé!':score>=7?'🎉 Bona feina! Has après molt sobre els ecosistemes!':score>=5?'👍 Bona feina! Continua practicant, cada vegada en sabràs més!':'📚 No passa res: repassa les explicacions i torna-ho a provar. Tu pots!';
+    if(score>=7)celebrate();
     document.getElementById('result-container').scrollIntoView({behavior:'smooth',block:'start'});
-  });
+  }
   document.getElementById('restart-button').addEventListener('click', () => {
-    form.reset(); form.hidden=false; document.getElementById('result-container').style.display='none'; updateProgress(); window.scrollTo({top:0,behavior:'smooth'});
+    window.clearInterval(timerId); finished=false; currentQuestion=0; secondsLeft=15*60;
+    form.reset(); form.hidden=true; document.getElementById('start-panel').hidden=false; document.getElementById('exam-status').style.display='none'; document.getElementById('result-container').style.display='none'; document.getElementById('timer').classList.remove('low'); renderTimer(); updateProgress(); window.scrollTo({top:0,behavior:'smooth'});
   });
 </script>
 </body>
