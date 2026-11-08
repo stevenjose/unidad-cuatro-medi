@@ -1,0 +1,184 @@
+Attempting to perform the InitializeDefaultDrives operation on the 'FileSystem' provider failed.
+<!doctype html>
+<html lang="ca">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0f766e">
+  <title>Examen de Medi · Els ecosistemes</title>
+  <style>
+    :root { color-scheme: light; --teal:#0f766e; --mint:#dff4ed; --ink:#183b3b; --muted:#527070; --line:#d8e8e3; }
+    * { box-sizing:border-box; }
+    body { margin:0; padding:24px 16px 48px; background:linear-gradient(180deg,#effaf5,#f5f8ff); color:#263b3b; font:16px/1.55 "Segoe UI",Arial,sans-serif; }
+    main { width:min(820px,100%); margin:auto; }
+    header { text-align:center; margin:0 auto 22px; }
+    .tag { display:inline-block; padding:5px 13px; border-radius:99px; background:#d8f3eb; color:#0b665f; font-size:.82rem; font-weight:800; letter-spacing:.04em; }
+    h1 { margin:12px 0 6px; padding:20px 14px; border-radius:18px; color:#124e4a; background:var(--mint); box-shadow:0 8px 22px #174e3c12; font-size:clamp(1.6rem,5vw,2.35rem); line-height:1.2; }
+    header p { margin:8px 0; color:var(--muted); }
+    .progress-wrap { margin:20px 0; text-align:left; }
+    .progress-label { display:flex; justify-content:space-between; gap:12px; margin-bottom:7px; font-size:.9rem; color:#426362; }
+    progress { width:100%; height:10px; border:0; border-radius:10px; overflow:hidden; }
+    progress::-webkit-progress-bar { background:#dcebe7; border-radius:10px; }
+    progress::-webkit-progress-value { background:var(--teal); border-radius:10px; }
+    progress::-moz-progress-bar { background:var(--teal); border-radius:10px; }
+    .question-card { margin:16px 0; padding:19px 20px 12px; border:1px solid var(--line); border-left:5px solid #27a58e; border-radius:14px; background:#fff; box-shadow:0 4px 14px #173d3510; }
+    .question-title { margin:0 0 12px; color:var(--ink); font-size:1.05rem; font-weight:750; }
+    .number { display:inline-grid; place-items:center; width:28px; height:28px; margin-right:7px; border-radius:50%; background:#e4f6f0; color:#0b7167; font-size:.9rem; }
+    label { display:flex; align-items:flex-start; gap:10px; margin:7px 0; padding:10px 11px; border-radius:9px; cursor:pointer; transition:background .18s; }
+    label:hover { background:#f0faf7; }
+    input[type=radio] { flex:none; margin:4px 0 0; accent-color:var(--teal); transform:scale(1.15); }
+    button { width:100%; margin:10px 0; padding:15px 18px; border:0; border-radius:12px; background:#13806f; color:#fff; font-size:1.08rem; font-weight:800; cursor:pointer; box-shadow:0 5px 12px #0f766e30; }
+    button:hover { background:#0e665b; }
+    button.secondary { width:auto; padding:11px 18px; background:#e2f2ed; color:#145b54; box-shadow:none; }
+    #result-container { display:none; margin-top:24px; padding:22px; border:1px solid var(--line); border-radius:16px; background:#fff; box-shadow:0 8px 22px #173d3510; }
+    #result-container h2 { margin:0 0 6px; color:var(--ink); }
+    .score { margin:4px 0 12px; color:#16745f; font-size:1.8rem; font-weight:850; }
+    .feedback { padding:0; list-style:none; }
+    .feedback li { margin:10px 0; padding:11px 13px; border-radius:10px; background:#f6f9f8; }
+    .correct { border-left:4px solid #24a36e; }
+    .incorrect { border-left:4px solid #db6b58; }
+    .feedback strong { display:block; margin-bottom:3px; }
+    .note { color:#5a7270; font-size:.91rem; }
+    footer { margin:24px 0 0; text-align:center; color:#6d8482; font-size:.84rem; }
+    @media (max-width:520px) { body { padding:17px 11px 34px; } .question-card { padding:16px 13px 9px; } label { padding:9px 8px; } }
+  </style>
+</head>
+<body>
+<main>
+  <header>
+    <span class="tag">3r de primària · Medi</span>
+    <h1>🌿 Examen: Els ecosistemes</h1>
+    <p>Llegeix cada pregunta i marca una resposta. Al final podràs veure la nota i repassar les explicacions.</p>
+    <div class="progress-wrap" aria-label="Progrés de l'examen">
+      <div class="progress-label"><span id="progress-text">0 de 10 preguntes contestades</span><span id="progress-percent">0%</span></div>
+      <progress id="progress" value="0" max="10"></progress>
+    </div>
+  </header>
+
+  <form id="quiz-form">
+    <section class="question-card"><h2 class="question-title"><span class="number">1</span>Què forma un ecosistema?</h2>
+      <label><input type="radio" name="q1" value="a"> Només els animals que viuen en un lloc.</label>
+      <label><input type="radio" name="q1" value="b"> Els éssers vius, el medi físic on viuen i les relacions entre tots.</label>
+      <label><input type="radio" name="q1" value="c"> Només les roques, l'aigua i l'aire.</label>
+    </section>
+    <section class="question-card"><h2 class="question-title"><span class="number">2</span>Quins elements formen part dels éssers vius d'un ecosistema?</h2>
+      <label><input type="radio" name="q2" value="a"> Les plantes, els animals i altres éssers vius petits.</label>
+      <label><input type="radio" name="q2" value="b"> Només les plantes i les roques.</label>
+      <label><input type="radio" name="q2" value="c"> L'aigua, l'aire i la temperatura.</label>
+    </section>
+    <section class="question-card"><h2 class="question-title"><span class="number">3</span>Quina afirmació sobre els ecosistemes és correcta?</h2>
+      <label><input type="radio" name="q3" value="a"> Els ecosistemes només poden ser terrestres.</label>
+      <label><input type="radio" name="q3" value="b"> Els ecosistemes poden ser terrestres o aquàtics.</label>
+      <label><input type="radio" name="q3" value="c"> Tots els ecosistemes tenen la mateixa temperatura i les mateixes espècies.</label>
+    </section>
+    <section class="question-card"><h2 class="question-title"><span class="number">4</span>Quin és un ecosistema aquàtic d'aigua dolça?</h2>
+      <label><input type="radio" name="q4" value="a"> Un desert.</label>
+      <label><input type="radio" name="q4" value="b"> Un bosc.</label>
+      <label><input type="radio" name="q4" value="c"> Un riu o una llacuna.</label>
+    </section>
+    <section class="question-card"><h2 class="question-title"><span class="number">5</span>Quins éssers vius són productors?</h2>
+      <label><input type="radio" name="q5" value="a"> Els animals que mengen plantes.</label>
+      <label><input type="radio" name="q5" value="b"> Les plantes, perquè produeixen el seu propi aliment.</label>
+      <label><input type="radio" name="q5" value="c"> Els animals que mengen altres animals.</label>
+    </section>
+    <section class="question-card"><h2 class="question-title"><span class="number">6</span>Què és un consumidor primari?</h2>
+      <label><input type="radio" name="q6" value="a"> Un animal que s'alimenta de plantes.</label>
+      <label><input type="radio" name="q6" value="b"> Una planta que fabrica el seu aliment.</label>
+      <label><input type="radio" name="q6" value="c"> Un animal que només menja consumidors secundaris.</label>
+    </section>
+    <section class="question-card"><h2 class="question-title"><span class="number">7</span>Quina cadena alimentària està ben ordenada?</h2>
+      <label><input type="radio" name="q7" value="a"> Astor → merla → saltamartí → herba.</label>
+      <label><input type="radio" name="q7" value="b"> Herba → saltamartí → merla → astor.</label>
+      <label><input type="radio" name="q7" value="c"> Saltamartí → herba → astor → merla.</label>
+    </section>
+    <section class="question-card"><h2 class="question-title"><span class="number">8</span>Què és la desforestació?</h2>
+      <label><input type="radio" name="q8" value="a"> La pèrdua de la vegetació dels boscos i les selves.</label>
+      <label><input type="radio" name="q8" value="b"> La plantació de molts arbres en un bosc.</label>
+      <label><input type="radio" name="q8" value="c"> La protecció dels animals en una reserva.</label>
+    </section>
+    <section class="question-card"><h2 class="question-title"><span class="number">9</span>Quan es produeix la sobreexplotació d'un ecosistema?</h2>
+      <label><input type="radio" name="q9" value="a"> Quan els éssers vius es reprodueixen prou per mantenir la població.</label>
+      <label><input type="radio" name="q9" value="b"> Quan es recullen més animals o plantes dels que s'hi poden reproduir.</label>
+      <label><input type="radio" name="q9" value="c"> Quan es deixa créixer la vegetació.</label>
+    </section>
+    <section class="question-card"><h2 class="question-title"><span class="number">10</span>Quina acció ajuda a protegir els ecosistemes?</h2>
+      <label><input type="radio" name="q10" value="a"> Deixar deixalles al bosc si no hi ha paperera a prop.</label>
+      <label><input type="radio" name="q10" value="b"> Arrencar plantes i acostar-se als animals per tocar-los.</label>
+      <label><input type="radio" name="q10" value="c"> Respectar els animals i les plantes, seguir els camins i endur-se les deixalles.</label>
+    </section>
+    <button type="button" id="submit-button">Corregir l'examen</button>
+    <p class="note">Revisa que hagis contestat totes les preguntes abans de corregir.</p>
+  </form>
+
+  <section id="result-container" aria-live="polite">
+    <h2>Resultat final</h2>
+    <div class="score" id="score-display"></div>
+    <p id="encouragement"></p>
+    <h3>Repàs de les respostes</h3>
+    <ol class="feedback" id="feedback-display"></ol>
+    <button class="secondary" type="button" id="restart-button">Torna-ho a provar</button>
+  </section>
+  <footer>Examen de Medi · Unitat: Els ecosistemes</footer>
+</main>
+<script>
+  const answers = {q1:'b',q2:'a',q3:'b',q4:'c',q5:'b',q6:'a',q7:'b',q8:'a',q9:'b',q10:'c'};
+  const explanations = {
+    q1:'Un ecosistema inclou els éssers vius, el medi físic on viuen i les relacions que s’hi estableixen.',
+    q2:'Els éssers vius inclouen plantes, animals i també organismes tan petits que cal una lupa o un microscopi per veure’ls.',
+    q3:'Els ecosistemes poden ser terrestres, com els boscos, o aquàtics, com els rius i els mars.',
+    q4:'Els rius i les llacunes són ecosistemes d’aigua dolça. El mar és d’aigua salada.',
+    q5:'Les plantes són productores perquè poden fabricar el seu propi aliment.',
+    q6:'Els consumidors primaris són herbívors: s’alimenten de plantes.',
+    q7:'L’herba és el productor, el saltamartí se la menja, la merla pot menjar el saltamartí i l’astor pot caçar la merla.',
+    q8:'La desforestació és la pèrdua de vegetació dels boscos i les selves. També pot fer que desapareguin animals i que el sòl s’erosioni.',
+    q9:'Hi ha sobreexplotació quan es recullen més animals o plantes dels que poden reproduir-se.',
+    q10:'Cal respectar plantes i animals, caminar pels camins marcats i llençar les deixalles a les papereres o endur-se-les.'
+  };
+  const form = document.getElementById('quiz-form');
+  const radios = [...form.querySelectorAll('input[type="radio"]')];
+  radios.forEach(radio => radio.addEventListener('change', updateProgress));
+  function updateProgress() {
+    const count = Object.keys(answers).filter(q => form.querySelector(`input[name="${q}"]:checked`)).length;
+    document.getElementById('progress').value = count;
+    document.getElementById('progress-text').textContent = `${count} de 10 preguntes contestades`;
+    document.getElementById('progress-percent').textContent = `${count * 10}%`;
+  }
+  document.getElementById('submit-button').addEventListener('click', () => {
+    for (let i=1;i<=10;i++) {
+      if (!form.querySelector(`input[name="q${i}"]:checked`)) {
+        alert(`Et falta respondre la pregunta ${i}.`);
+        form.querySelector(`input[name="q${i}"]`).focus();
+        return;
+      }
+    }
+    let score=0;
+    const list=document.getElementById('feedback-display');
+    list.replaceChildren();
+    for (let i=1;i<=10;i++) {
+      const q=`q${i}`;
+      const selected=form.querySelector(`input[name="${q}"]:checked`).value;
+      const correct=selected===answers[q];
+      if(correct) score++;
+      const item=document.createElement('li');
+      item.className=correct?'correct':'incorrect';
+      const title=document.createElement('strong');
+      title.textContent=`Pregunta ${i}: ${correct?'Correcte!':'Encara no.'}`;
+      const detail=document.createElement('span');
+      detail.textContent=explanations[q];
+      item.append(title,detail); list.append(item);
+    }
+    document.getElementById('quiz-form').hidden=true;
+    document.getElementById('result-container').style.display='block';
+    const scoreBox=document.getElementById('score-display');
+    scoreBox.textContent=`La teva nota és: ${score} / 10`;
+    scoreBox.style.color=score===10?'#16804c':score>=5?'#b66b08':'#b94739';
+    document.getElementById('encouragement').textContent=score===10?'🌟 Excel·lent! Ho has fet molt bé.':score>=5?'👍 Bona feina! Continua repassant.':'📚 Torna a llegir les explicacions i prova-ho una altra vegada.';
+    document.getElementById('result-container').scrollIntoView({behavior:'smooth',block:'start'});
+  });
+  document.getElementById('restart-button').addEventListener('click', () => {
+    form.reset(); form.hidden=false; document.getElementById('result-container').style.display='none'; updateProgress(); window.scrollTo({top:0,behavior:'smooth'});
+  });
+</script>
+</body>
+</html>
+
